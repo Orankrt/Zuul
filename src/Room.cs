@@ -4,13 +4,15 @@ class Room
 {
 	// Private fields
 	private string description;
+	private string dsc;
 	private Dictionary<string, Room> exits; // stores exits of this room.
 
 	// Create a room described "description". Initially, it has no exits.
 	// "description" is something like "in a kitchen" or "in a court yard".
-	public Room(string desc)
+	public Room(string desc , string RoomLongDescription)
 	{
 		description = desc;
+		dsc = RoomLongDescription;
 		exits = new Dictionary<string, Room>();
 	}
 
@@ -37,6 +39,16 @@ class Room
 		str += GetExitString();
 		return str;
 	}
+
+	public string RoomLongDescription()
+	{
+		string str = "";
+		str += dsc;
+		str += ".\n";
+		str += GetExitString();
+		return str;
+	}
+
 
 	// Return the room that is reached if we go from this room in direction
 	// "direction". If there is no room in that direction, return null.

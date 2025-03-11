@@ -17,25 +17,66 @@ class Game
 	private void CreateRooms()
 	{
 		// Create the rooms
-		Room outside = new Room("outside the main entrance of the university");
-		Room theatre = new Room("in a lecture theatre");
-		Room pub = new Room("in the campus pub");
-		Room lab = new Room("in a computing lab");
-		Room office = new Room("in the computing admin office");
+		Room patientRoom = new Room("in a patient room where you woke up",
+		("The bed is dirty, and the sheets are crumpled. The air smells bad, a mix of medicine and something rotten. The heart monitor is off, and medical tools are scattered on the floor. The window blinds are half-open. This room was once safe, but now it feels abandoned and scary."));
+		Room patientRoomWC = new Room("in the patient room's WC",
+		("The WC is small and dirty."));
+		Room patientRoomCorridor = new Room("in the corridor of the patient rooms", ("Wheelchairs are overturned, IV bags scattered across the floor. The electrical panels seem to be short-circuiting, occasionally sparking. Something terrible has happened here, but you don’t know what. All you do know is that you shouldn’t stay here for long…"));
+		Room receptionHall = new Room("in a hall.",
+		(" The floor is covered in scattered papers, broken glass, and dried blood.  "));
+		Room patientReception = new Room("in the patient reception",
+		("The reception desk is empty, and the computer screen is flickering. The lights are off, and the only light comes from the outside. "));
+		Room cafeteriaHall = new Room("in the cafeteria hall",
+		("The walls are stained with handprints and graffiti. You also see some bullet shells on the ground. The smell of decay is strong, and the air is heavy. You can hear faint moans and shuffling coming from the other rooms. Most doors are open, but some are chained shut or barricaded with wooden planks. The words 'DO NOT OPEN, DEAD INSIDE' are spray-painted in large letters across one of the doors. Faint, guttural growls echo from behind it, sending chills down your spine. "));
+		Room patientMainHall = new Room("in the main hall of the patient area",
+		(" You see a elevator but there is no power in the buildin. So you have to use stairs or go back."));
+		Room secondFloorStairs = new Room("in the second floor stairs",
+		("The stairs are dark because there is no electricity but it's the only way down. So you have to lean against the wall and go down slowly. "));
+		Room firstFloorStairs = new Room("in the first floor stairs",
+		("The stairs are dark because there is no electricity but it's the only way up. So you have to lean against the wall and go up slowly."));
+		Room mainHall = new Room("in the main hall of the hospital",
+		("The main hall is vast and empty, with high ceilings that echo your every step. The floors are cracked and dirty, littered with discarded hospital equipment and broken furniture. Dim lights hang from the ceiling. The walls are marked with old bloodstains and peeling paint. A sense of abandonment fills the air. The silence is unsettling, broken only by distant, muffled sounds. "));
+		Room exit = new Room("in the outside of the hospital",
+		("When you go outside you see dozens of dead bodies lying on the ground and covered with sheets. You have no idea what happened, but the place is deserted and quiet. You realize that something really bad happened when you were in the coma..."));
 
 		// Initialise room exits
-		outside.AddExit("east", theatre);
-		outside.AddExit("south", lab);
-		outside.AddExit("west", pub);
+		patientRoom.AddExit("east", patientRoomCorridor);
+		patientRoom.AddExit("south", patientRoomWC);
 
-		theatre.AddExit("west", outside);
+		patientRoomWC.AddExit("north", patientRoom);
 
-		pub.AddExit("east", outside);
+		patientRoomCorridor.AddExit("west", patientRoom);
+		patientRoomCorridor.AddExit("south", receptionHall);
 
-		lab.AddExit("north", outside);
-		lab.AddExit("east", office);
+		receptionHall.AddExit("north", patientRoomCorridor);
+		receptionHall.AddExit("east", patientReception);
+		receptionHall.AddExit("west", cafeteriaHall);
 
-		office.AddExit("west", lab);
+		patientReception.AddExit("west", receptionHall);
+
+		cafeteriaHall.AddExit("north", patientMainHall);
+		cafeteriaHall.AddExit("east", receptionHall);
+		// cafeteriaHall.AddExit("west", cafeteria);
+
+		patientMainHall.AddExit("south", cafeteriaHall);
+		patientMainHall.AddExit("north", secondFloorStairs);
+		// mainHall.AddExit("west", elevator);
+
+		secondFloorStairs.AddExit("south", patientMainHall);
+		secondFloorStairs.AddExit("down", firstFloorStairs);
+
+		firstFloorStairs.AddExit("up", secondFloorStairs);
+		firstFloorStairs.AddExit("south", mainHall);
+
+		mainHall.AddExit("north", firstFloorStairs);
+		mainHall.AddExit("east", exit);
+		// mainHall.AddExit("south", firstFloorHall);
+		// mainHall.AddExit("west", elevator);
+
+		exit.AddExit("west", mainHall);
+
+
+
 
 		// Create your Items here
 		// ...
@@ -43,7 +84,7 @@ class Game
 		// ...
 
 		// Start game outside
-		currentRoom = outside;
+		currentRoom = patientRoom;
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -68,8 +109,10 @@ class Game
 	private void PrintWelcome()
 	{
 		Console.WriteLine();
-		Console.WriteLine("Welcome to Zuul!");
-		Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
+		Console.WriteLine("Welcome to TWD!");
+		Console.WriteLine("-----------------------------------------------");
+		Console.WriteLine("As you open your eyes, you feel dizzy. The surroundings are silent… Too silent. Your mind is foggy, your body weak. You realize you’re in a hospital. The last thing you remember is being shot while fighting criminals with your police colleagues.");
+		Console.WriteLine("You try to get out of bed slowly, but you fail and fall to the floor. You slowly get up again.");
 		Console.WriteLine("Type 'help' if you need help.");
 		Console.WriteLine();
 		Console.WriteLine(currentRoom.GetLongDescription());
@@ -82,7 +125,7 @@ class Game
 	{
 		bool wantToQuit = false;
 
-		if(command.IsUnknown())
+		if (command.IsUnknown())
 		{
 			Console.WriteLine("I don't know what you mean...");
 			return wantToQuit; // false
@@ -96,6 +139,9 @@ class Game
 			case "go":
 				GoRoom(command);
 				break;
+			case "look":
+				Look();
+				break;
 			case "quit":
 				wantToQuit = true;
 				break;
@@ -107,23 +153,28 @@ class Game
 	// ######################################
 	// implementations of user commands:
 	// ######################################
-	
+
 	// Print out some help information.
 	// Here we print the mission and a list of the command words.
 	private void PrintHelp()
 	{
 		Console.WriteLine("You are lost. You are alone.");
-		Console.WriteLine("You wander around at the university.");
+		Console.WriteLine("You wander around at the hospital.");
 		Console.WriteLine();
 		// let the parser print the commands
 		parser.PrintValidCommands();
+	}
+
+	private void Look()
+	{
+		Console.WriteLine(currentRoom.RoomLongDescription());
 	}
 
 	// Try to go to one direction. If there is an exit, enter the new
 	// room, otherwise print an error message.
 	private void GoRoom(Command command)
 	{
-		if(!command.HasSecondWord())
+		if (!command.HasSecondWord())
 		{
 			// if there is no second word, we don't know where to go...
 			Console.WriteLine("Go where?");
@@ -136,7 +187,7 @@ class Game
 		Room nextRoom = currentRoom.GetExit(direction);
 		if (nextRoom == null)
 		{
-			Console.WriteLine("There is no door to "+direction+"!");
+			Console.WriteLine("There is no door to " + direction + "!");
 			return;
 		}
 
