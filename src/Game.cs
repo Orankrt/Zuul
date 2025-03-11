@@ -17,6 +17,9 @@ class Game
 	private void CreateRooms()
 	{
 		// Create the rooms
+		//##################################################################################################################
+		// ROOMS LIST
+		//##################################################################################################################
 		Room patientRoom = new Room("in a patient room where you woke up",
 		("The bed is dirty, and the sheets are crumpled. The air smells bad, a mix of medicine and something rotten. The heart monitor is off, and medical tools are scattered on the floor. The window blinds are half-open. This room was once safe, but now it feels abandoned and scary."));
 		Room patientRoomWC = new Room("in the patient room's WC",
@@ -38,8 +41,13 @@ class Game
 		("The main hall is vast and empty, with high ceilings that echo your every step. The floors are cracked and dirty, littered with discarded hospital equipment and broken furniture. Dim lights hang from the ceiling. The walls are marked with old bloodstains and peeling paint. A sense of abandonment fills the air. The silence is unsettling, broken only by distant, muffled sounds. "));
 		Room exit = new Room("in the outside of the hospital",
 		("When you go outside you see dozens of dead bodies lying on the ground and covered with sheets. You have no idea what happened, but the place is deserted and quiet. You realize that something really bad happened when you were in the coma..."));
+		//##################################################################################################################
+		//##################################################################################################################
 
 		// Initialise room exits
+		//##################################################################################################################
+		// ROOMS EXITS		
+		//##################################################################################################################
 		patientRoom.AddExit("east", patientRoomCorridor);
 		patientRoom.AddExit("south", patientRoomWC);
 
@@ -74,15 +82,15 @@ class Game
 		// mainHall.AddExit("west", elevator);
 
 		exit.AddExit("west", mainHall);
-
+		//##################################################################################################################
+		//##################################################################################################################
 
 
 
 		// Create your Items here
-
-		//##############################
-		// ITEMS
-		//##############################
+		//##################################################################################################################
+		// ITEMS LIST
+		//##################################################################################################################
 
 		//Weapons
 		//##############################
@@ -116,10 +124,14 @@ class Game
 		Item medicalBag = new Item(9, "A medical bag. It contains a lot of medicine, but it's too heavy to carry.");
 		//##############################
 
+		//##################################################################################################################
+		//##################################################################################################################
+
+
 		// And add them to the Rooms
 		// ...
 
-		// Start game outside
+		// Start game in the patient room
 		currentRoom = patientRoom;
 	}
 
@@ -203,6 +215,7 @@ class Game
 		parser.PrintValidCommands();
 	}
 
+	// Look around the current room.
 	private void Look()
 	{
 		Console.WriteLine(currentRoom.RoomLongDescription());
