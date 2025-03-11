@@ -92,14 +92,23 @@ class Game
 		Item pistol = new Item(4, "A pistol. It's worn, semi-automatic pistol, lightweight and scratched. .");
 		Item shotgun = new Item(8, "A shotgun. It's rusty pump-action shotgun, sturdy but weathered..");
 		//##############################
+		
 		// Food Items
 		//##############################
-		Item apple = new Item(1, "An apple. It's sweet and tasty.");
-		Item banana = new Item(1, "A banana. It's yellow and juicy.");
-		Item sandwich = new Item(2, "A sandwich. It's made from bread and cheese.");
-		Item juice = new Item(1, "A juice. It's sweet and refreshing.");
-		Item waterBottle = new Item(2, "A water bottle. It's filled with clean water.");
+		// Item apple = new Item(1, "An apple. It's sweet and tasty.");
+		// Item banana = new Item(1, "A banana. It's yellow and juicy.");
+		// Item sandwich = new Item(2, "A sandwich. It's made from bread and cheese.");
+		// Item juice = new Item(1, "A juice. It's sweet and refreshing.");
+		// Item waterBottle = new Item(2, "A water bottle. It's filled with clean water.");
 		//##############################
+		
+		//Light Sources
+		//##############################
+		// Item flashlight = new Item(3, "A flashlight. It's small and portable, but the batteries are almost dead.");
+		// Item lighter = new Item(2, "A lighter. It's small and easy to use, but it could run out of fuel.");
+		// Item matchbox = new Item(1, "A matchbox. It's small and fragile, but it could be useful for short time.");
+		//##############################
+
 		//Medical Items
 		//##############################
 		Item medicineBottle = new Item(1, "A medicine bottle. It contains a small amount of medicine.");
