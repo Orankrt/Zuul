@@ -79,7 +79,34 @@ class Game
 
 
 		// Create your Items here
-		// ...
+
+		//##############################
+		// ITEMS
+		//##############################
+
+		//Weapons
+		//##############################
+		Item scalpel = new Item(1, "A scalpel. It's small but very sharp and dangerous.");
+		Item knife = new Item(2, "A kitchen knife. It's sharp and could be useful for self-defense.");
+		Item crowbar = new Item(4, "A crowbar. It's heavy and sturdy, and it could be useful for breaking things.");
+		Item pistol = new Item(4, "A pistol. It's worn, semi-automatic pistol, lightweight and scratched. .");
+		Item shotgun = new Item(8, "A shotgun. It's rusty pump-action shotgun, sturdy but weathered..");
+		//##############################
+		// Food Items
+		//##############################
+		Item apple = new Item(1, "An apple. It's sweet and tasty.");
+		Item banana = new Item(1, "A banana. It's yellow and juicy.");
+		Item sandwich = new Item(2, "A sandwich. It's made from bread and cheese.");
+		Item juice = new Item(1, "A juice. It's sweet and refreshing.");
+		Item waterBottle = new Item(2, "A water bottle. It's filled with clean water.");
+		//##############################
+		//Medical Items
+		//##############################
+		Item medicineBottle = new Item(1, "A medicine bottle. It contains a small amount of medicine.");
+		Item medKit = new Item(4, "A medical kit. It contains bandages, antiseptic, and other medical supplies.");
+		Item medicalBag = new Item(9, "A medical bag. It contains a lot of medicine, but it's too heavy to carry.");
+		//##############################
+
 		// And add them to the Rooms
 		// ...
 
@@ -113,7 +140,9 @@ class Game
 		Console.WriteLine("-----------------------------------------------");
 		Console.WriteLine("As you open your eyes, you feel dizzy. The surroundings are silent… Too silent. Your mind is foggy, your body weak. You realize you’re in a hospital. The last thing you remember is being shot while fighting criminals with your police colleagues.");
 		Console.WriteLine("You try to get out of bed slowly, but you fail and fall to the floor. You slowly get up again.");
+		Console.WriteLine("-----------------------------------------------");
 		Console.WriteLine("Type 'help' if you need help.");
+		Console.WriteLine("-----------------------------------------------");
 		Console.WriteLine();
 		Console.WriteLine(currentRoom.GetLongDescription());
 	}
@@ -159,7 +188,7 @@ class Game
 	private void PrintHelp()
 	{
 		Console.WriteLine("You are lost. You are alone.");
-		Console.WriteLine("You wander around at the hospital.");
+		Console.WriteLine("-----------------------------");
 		Console.WriteLine();
 		// let the parser print the commands
 		parser.PrintValidCommands();
