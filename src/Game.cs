@@ -25,7 +25,7 @@ class Game
 		Room patientRoomWC = new Room("in the patient room's WC",
 		("The WC is small and dirty."));
 		Room patientRoomCorridor = new Room("in the corridor of the patient rooms", ("Wheelchairs are overturned, IV bags scattered across the floor. The electrical panels seem to be short-circuiting, occasionally sparking. Something terrible has happened here, but you don’t know what. All you do know is that you shouldn’t stay here for long…"));
-		Room receptionHall = new Room("in a hall.",
+		Room receptionHall = new Room("in the reception hall.",
 		(" The floor is covered in scattered papers, broken glass, and dried blood.  "));
 		Room patientReception = new Room("in the patient reception",
 		("The reception desk is empty, and the computer screen is flickering. The lights are off, and the only light comes from the outside. "));
@@ -39,10 +39,23 @@ class Game
 		("The stairs are dark because there is no electricity but it's the only way up. So you have to lean against the wall and go up slowly."));
 		Room mainHall = new Room("in the main hall of the hospital",
 		("The main hall is vast and empty, with high ceilings that echo your every step. The floors are cracked and dirty, littered with discarded hospital equipment and broken furniture. Dim lights hang from the ceiling. The walls are marked with old bloodstains and peeling paint. A sense of abandonment fills the air. The silence is unsettling, broken only by distant, muffled sounds. "));
+		Room operatingRoom = new Room("in the operating room",
+		("The operating room is cold and sterile. The air is thick with the smell of antiseptic. The room is silent.. "));
+		Room operatingRoomHall = new Room("in the hall of the operating rooms", ("The hall is warm and there is sunlight coming through all of the windows, you suddenly feel safe you close your eyes slowly and take a deep breath but as you open your eyes again you relize that the walls covered in mold and dried blood. The air is thick with the smell of decay."));
 		Room exit = new Room("in the outside of the hospital",
 		("When you go outside you see dozens of dead bodies lying on the ground and covered with sheets. You have no idea what happened, but the place is deserted and quiet. You realize that something really bad happened when you were in the coma..."));
+		Room basementStairs = new Room("in the basement stairs",
+		("The stairs are dark and damp. The air is thick with the smell of mold and decay. You can hear faint sounds coming from below, but you can't make out what they are. The stairs are steep and slippery, and you have to be careful not to fall. "));
+		Room basementHall = new Room("in the basement hall",
+		("The basement is dark and cold. The walls are damp and covered in mold and the air is thick with the smell of decay. You can hear faint sounds coming from a room all the way in the end of the hall, but you can't make out what they are. The only light comes from a window close to the ceiling. "));
+		Room storageRoom = new Room("in the storage room",
+		("The storage room is cramped and messy, with shelves of supplies coated in dust. Boxes lie broken on the floor, and the air smells damp and stale. The room is filled with the sound of rats scurrying and the occasional drip of water. "));
+		Room morgue = new Room("in the morgue",
+		("The morgue is cold and sterile, with rows of metal tables and body bags. The air is thick with the smell of formaldehyde. The room is silent, but you can't shake the feeling that you're being watched. "));
+
 		//##################################################################################################################
 		//##################################################################################################################
+
 
 		// Initialise room exits
 		//##################################################################################################################
@@ -57,14 +70,14 @@ class Game
 		patientRoomCorridor.AddExit("south", receptionHall);
 
 		receptionHall.AddExit("north", patientRoomCorridor);
-		receptionHall.AddExit("east", patientReception);
-		receptionHall.AddExit("west", cafeteriaHall);
+		receptionHall.AddExit("west", patientReception);
+		receptionHall.AddExit("east", cafeteriaHall);
 
-		patientReception.AddExit("west", receptionHall);
+		patientReception.AddExit("east", receptionHall);
 
 		cafeteriaHall.AddExit("north", patientMainHall);
-		cafeteriaHall.AddExit("east", receptionHall);
-		// cafeteriaHall.AddExit("west", cafeteria);
+		cafeteriaHall.AddExit("west", receptionHall);
+		// cafeteriaHall.AddExit("east", cafeteria);
 
 		patientMainHall.AddExit("south", cafeteriaHall);
 		patientMainHall.AddExit("north", secondFloorStairs);
@@ -74,12 +87,28 @@ class Game
 		secondFloorStairs.AddExit("down", firstFloorStairs);
 
 		firstFloorStairs.AddExit("up", secondFloorStairs);
+		firstFloorStairs.AddExit("down", basementStairs);
 		firstFloorStairs.AddExit("south", mainHall);
+
+		basementStairs.AddExit("up", firstFloorStairs);
+		basementStairs.AddExit("south", basementHall);
+
+		basementHall.AddExit("north", basementStairs);
+		basementHall.AddExit("east", storageRoom);
+		basementHall.AddExit("west", morgue);
+		
+		storageRoom.AddExit("west", basementHall);
+
+		morgue.AddExit("east", basementHall);
 
 		mainHall.AddExit("north", firstFloorStairs);
 		mainHall.AddExit("east", exit);
-		// mainHall.AddExit("south", firstFloorHall);
-		// mainHall.AddExit("west", elevator);
+		mainHall.AddExit("south", operatingRoomHall);
+
+		operatingRoomHall.AddExit("north", mainHall);
+		operatingRoomHall.AddExit("west", operatingRoom) ;
+
+		operatingRoom.AddExit("east", operatingRoomHall);
 
 		exit.AddExit("west", mainHall);
 		//##################################################################################################################
@@ -157,9 +186,9 @@ class Game
 	private void PrintWelcome()
 	{
 		Console.WriteLine();
-		Console.WriteLine("Welcome to TWD!");
+		Console.WriteLine("Welcome to Zuul TWD!");
 		Console.WriteLine("-----------------------------------------------");
-		Console.WriteLine("As you open your eyes, you feel dizzy. The surroundings are silent… Too silent. Your mind is foggy, your body weak. You realize you’re in a hospital. The last thing you remember is being shot while fighting criminals with your police colleagues.");
+		Console.WriteLine("As you open your eyes, you feel dizzy. The surroundings are silent… Too silent. Your mind is foggy, your body weak. You realize you’re in a hospital room. The last thing you remember is being shot while fighting criminals with your police colleagues.");
 		Console.WriteLine("You try to get out of bed slowly, but you fail and fall to the floor. You slowly get up again.");
 		Console.WriteLine("-----------------------------------------------");
 		Console.WriteLine("Type 'help' if you need help.");
