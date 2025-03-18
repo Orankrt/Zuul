@@ -149,8 +149,8 @@ class Game
 		//Medical Items
 		//##############################
 		Item medicineBottle = new Item(1, "A medicine bottle. It contains a small amount of medicine.");
-		Item medKit = new Item(4, "A medical kit. It contains bandages, antiseptic, and other medical supplies.");
-		Item medicalBag = new Item(9, "A medical bag. It contains a lot of medicine, but it's too heavy to carry.");
+		Item medKit = new Item(4, "A medical kit. It contains bandage, antiseptic, and some other medical supplies.");
+		Item medicalBag = new Item(9, "A medical bag. It contains a lot of medicine, but it's too heavy.");
 		//##############################
 
 		//##################################################################################################################
