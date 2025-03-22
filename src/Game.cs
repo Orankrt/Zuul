@@ -4,12 +4,13 @@ class Game
 {
 	// Private fields
 	private Parser parser;
-	private Room currentRoom;
+	private Player player;
 
 	// Constructor
 	public Game()
 	{
 		parser = new Parser();
+		player = new Player();
 		CreateRooms();
 	}
 
@@ -24,11 +25,11 @@ class Game
 		("The bed is dirty, and the sheets are crumpled. The air smells bad, a mix of medicine and something rotten. The heart monitor is off, and medical tools are scattered on the floor. The window blinds are half-open. This room was once safe, but now it feels abandoned and scary."));
 		Room patientRoomWC = new Room("in the patient room's WC",
 		("The WC is small and dirty."));
-		Room patientRoomCorridor = new Room("in the corridor of the patient rooms", ("Wheelchairs are overturned, IV bags scattered across the floor. The electrical panels seem to be short-circuiting, occasionally sparking. Something terrible has happened here, but you don’t know what. All you do know is that you shouldn’t stay here for long…"));
+		Room patientRoomCorridor = new Room("in the corridor of the patient rooms", ("Wheelchairs are overturned, IV bags scattered across the floor. Something terrible has happened here, but you don’t know what. All you do know is that you shouldn’t stay here for long…"));
 		Room receptionHall = new Room("in the reception hall.",
 		(" The floor is covered in scattered papers, broken glass, and dried blood.  "));
 		Room patientReception = new Room("in the patient reception",
-		("The reception desk is empty, and the computer screen is flickering. The lights are off, and the only light comes from the outside. "));
+		("The reception desk is empty and the lights are off, the only light that comes is from the outside. "));
 		Room cafeteriaHall = new Room("in the cafeteria hall",
 		("The walls are stained with handprints and graffiti. You also see some bullet shells on the ground. The smell of decay is strong, and the air is heavy. You can hear faint moans and shuffling coming from the other rooms. Most doors are open, but some are chained shut or barricaded with wooden planks. The words 'DO NOT OPEN, DEAD INSIDE' are spray-painted in large letters across one of the doors. Faint, guttural growls echo from behind it, sending chills down your spine. "));
 		Room patientMainHall = new Room("in the main hall of the patient area",
@@ -161,7 +162,7 @@ class Game
 		// ...
 
 		// Start game in the patient room
-		currentRoom = patientRoom;
+		player.CurrentRoom = patientRoom;
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -194,7 +195,7 @@ class Game
 		Console.WriteLine("Type 'help' if you need help.");
 		Console.WriteLine("-----------------------------------------------");
 		Console.WriteLine();
-		Console.WriteLine(currentRoom.GetLongDescription());
+		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 
 	// Given a command, process (that is: execute) the command.
@@ -247,7 +248,7 @@ class Game
 	// Look around the current room.
 	private void Look()
 	{
-		Console.WriteLine(currentRoom.RoomLongDescription());
+		Console.WriteLine(player.CurrentRoom.RoomLongDescription());
 	}
 
 	// Try to go to one direction. If there is an exit, enter the new
@@ -264,14 +265,26 @@ class Game
 		string direction = command.SecondWord;
 
 		// Try to go to the next room.
-		Room nextRoom = currentRoom.GetExit(direction);
+		Room nextRoom = player.CurrentRoom.GetExit(direction);
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to " + direction + "!");
 			return;
 		}
 
-		currentRoom = nextRoom;
-		Console.WriteLine(currentRoom.GetLongDescription());
+		player.CurrentRoom = nextRoom;
+		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+	}
+
+	private void Status()
+	{
+		Console.WriteLine("==========================================");
+		Console.WriteLine(player.ShowHealth());
+		Console.WriteLine
+		("==========================================");
+        Console.WriteLine("Current Location: " + player.CurrentRoom);
+        Console.WriteLine("==========================================");
+        Console.WriteLine("Inventory: ");
+        Console.WriteLine("==========================================");
 	}
 }
