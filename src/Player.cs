@@ -29,9 +29,12 @@ class Player
     {
         return health > 0;
     }
-    public int ShowHealth()
+    public string GetHealthStatus() // Shows the status
     {
-        return health;
+        return $"Your current health is: {health}";
     }
-
+    public void Move()
+    {
+        Damage(5); // Decrease health by a fixed amount each time the player moves
+    }
 }

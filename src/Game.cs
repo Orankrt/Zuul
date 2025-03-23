@@ -21,7 +21,7 @@ class Game
 		//##################################################################################################################
 		// ROOMS LIST
 		//##################################################################################################################
-		Room patientRoom = new Room("in a patient room where you woke up",
+		Room patientRoom = new Room("in the patient room where you woke up",
 		("The bed is dirty, and the sheets are crumpled. The air smells bad, a mix of medicine and something rotten. The heart monitor is off, and medical tools are scattered on the floor. The window blinds are half-open. This room was once safe, but now it feels abandoned and scary."));
 		Room patientRoomWC = new Room("in the patient room's WC",
 		("The WC is small and dirty."));
@@ -97,7 +97,7 @@ class Game
 		basementHall.AddExit("north", basementStairs);
 		basementHall.AddExit("east", storageRoom);
 		basementHall.AddExit("west", morgue);
-		
+
 		storageRoom.AddExit("west", basementHall);
 
 		morgue.AddExit("east", basementHall);
@@ -107,7 +107,7 @@ class Game
 		mainHall.AddExit("south", operatingRoomHall);
 
 		operatingRoomHall.AddExit("north", mainHall);
-		operatingRoomHall.AddExit("west", operatingRoom) ;
+		operatingRoomHall.AddExit("west", operatingRoom);
 
 		operatingRoom.AddExit("east", operatingRoomHall);
 
@@ -128,23 +128,11 @@ class Game
 		Item knife = new Item(2, "A kitchen knife. It's sharp and could be useful for self-defense.");
 		Item crowbar = new Item(4, "A crowbar. It's heavy and sturdy, and it could be useful for breaking things.");
 		Item pistol = new Item(4, "A pistol. It's worn, semi-automatic pistol, lightweight and scratched. .");
-		Item shotgun = new Item(8, "A shotgun. It's rusty pump-action shotgun, sturdy but weathered..");
 		//##############################
-		
-		// Food Items
-		//##############################
-		// Item apple = new Item(1, "An apple. It's sweet and tasty.");
-		// Item banana = new Item(1, "A banana. It's yellow and juicy.");
-		// Item sandwich = new Item(2, "A sandwich. It's made from bread and cheese.");
-		// Item juice = new Item(1, "A juice. It's sweet and refreshing.");
-		// Item waterBottle = new Item(2, "A water bottle. It's filled with clean water.");
-		//##############################
-		
+
 		//Light Sources
 		//##############################
 		// Item flashlight = new Item(3, "A flashlight. It's small and portable, but the batteries are almost dead.");
-		// Item lighter = new Item(2, "A lighter. It's small and easy to use, but it could run out of fuel.");
-		// Item matchbox = new Item(1, "A matchbox. It's small and fragile, but it could be useful for short time.");
 		//##############################
 
 		//Medical Items
@@ -178,7 +166,15 @@ class Game
 			Command command = parser.GetCommand();
 			finished = ProcessCommand(command);
 		}
-		Console.WriteLine("Thank you for playing.");
+		if (!player.IsAlive())
+		{
+			Console.WriteLine("You have died. Game Over.");
+			Environment.Exit(0);
+		}
+		else
+		{
+			Console.WriteLine("Thank you for playing.");
+		}
 		Console.WriteLine("Press [Enter] to continue.");
 		Console.ReadLine();
 	}
@@ -221,6 +217,9 @@ class Game
 				break;
 			case "look":
 				Look();
+				break;
+			case "status":
+				ShowStatus();
 				break;
 			case "quit":
 				wantToQuit = true;
@@ -271,20 +270,25 @@ class Game
 			Console.WriteLine("There is no door to " + direction + "!");
 			return;
 		}
+		player.Move(); // Decrease health when moving
+
+		if (!player.IsAlive())
+		{
+			Console.WriteLine("You have died from your injuries while moving.");
+			Environment.Exit(0); // End the game if player is dead
+		}
 
 		player.CurrentRoom = nextRoom;
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+
 	}
 
-	private void Status()
+	private void ShowStatus()
 	{
-		Console.WriteLine("==========================================");
-		Console.WriteLine(player.ShowHealth());
-		Console.WriteLine
-		("==========================================");
-        Console.WriteLine("Current Location: " + player.CurrentRoom);
-        Console.WriteLine("==========================================");
-        Console.WriteLine("Inventory: ");
-        Console.WriteLine("==========================================");
+		Console.WriteLine("============STATUS=============");
+		Console.WriteLine(player.GetHealthStatus());
+		Console.WriteLine("------------------------------");
+		Console.WriteLine("Inventory: ");
+		Console.WriteLine("------------------------------");
 	}
 }
