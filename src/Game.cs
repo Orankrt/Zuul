@@ -19,8 +19,7 @@ class Game
 	{
 		// Create the rooms
 		//##################################################################################################################
-		// ROOMS LIST
-		//##################################################################################################################
+		// ROOM LIST
 		Room patientRoom = new Room("in the patient room where you woke up",
 		("The bed is dirty, and the sheets are crumpled. The air smells bad, a mix of medicine and something rotten. The heart monitor is off, and medical tools are scattered on the floor. The window blinds are half-open. This room was once safe, but now it feels abandoned and scary."));
 		Room patientRoomWC = new Room("in the patient room's WC",
@@ -55,13 +54,11 @@ class Game
 		("The morgue is cold and sterile, with rows of metal tables and body bags. The air is thick with the smell of formaldehyde. The room is silent, but you can't shake the feeling that you're being watched. "));
 
 		//##################################################################################################################
-		//##################################################################################################################
 
 
 		// Initialise room exits
 		//##################################################################################################################
-		// ROOMS EXITS		
-		//##################################################################################################################
+		// ROOM EXITS		
 		patientRoom.AddExit("east", patientRoomCorridor);
 		patientRoom.AddExit("south", patientRoomWC);
 
@@ -112,27 +109,23 @@ class Game
 		operatingRoom.AddExit("east", operatingRoomHall);
 
 		exit.AddExit("west", mainHall);
-		//##################################################################################################################
-		//##################################################################################################################
 
+		//##################################################################################################################
 
 
 		// Create your Items here
-		//##################################################################################################################
-		// ITEMS LIST
-		//##################################################################################################################
+
 
 		//Weapons
 		//##############################
 		Item scalpel = new Item(1, "A scalpel. It's small but very sharp and dangerous.");
-		Item knife = new Item(2, "A kitchen knife. It's sharp and could be useful for self-defense.");
 		Item crowbar = new Item(4, "A crowbar. It's heavy and sturdy, and it could be useful for breaking things.");
 		Item pistol = new Item(4, "A pistol. It's worn, semi-automatic pistol, lightweight and scratched. .");
 		//##############################
 
 		//Light Sources
 		//##############################
-		// Item flashlight = new Item(3, "A flashlight. It's small and portable, but the batteries are almost dead.");
+		Item flashlight = new Item(3, "A flashlight. It's small and portable, but the batteries are almost dead.");
 		//##############################
 
 		//Medical Items
@@ -142,11 +135,12 @@ class Game
 		Item medicalBag = new Item(9, "A medical bag. It contains a lot of medicine, but it's too heavy.");
 		//##############################
 
-		//##################################################################################################################
-		//##################################################################################################################
 
-
+		
+		patientRoomWC.Chest.Put("crowbar", crowbar);
 		// And add them to the Rooms
+
+
 		// ...
 
 		// Start game in the patient room
@@ -277,9 +271,15 @@ class Game
 			Console.WriteLine("You have died from your injuries while moving.");
 			Environment.Exit(0); // End the game if player is dead
 		}
-
 		player.CurrentRoom = nextRoom;
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+	}
+	private void Take(Command command)
+	{
+
+	}
+	private void Drop(Command command)
+	{
 
 	}
 
