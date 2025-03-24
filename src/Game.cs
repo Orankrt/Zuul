@@ -38,7 +38,7 @@ class Game
 		Room firstFloorStairs = new Room("in the first floor stairs",
 		("The stairs are dark because there is no electricity but it's the only way up. So you have to lean against the wall and go up slowly."));
 		Room mainHall = new Room("in the main hall of the hospital",
-		("The main hall is vast and empty, with high ceilings that echo your every step. The floors are cracked and dirty, littered with discarded hospital equipment and broken furniture. Dim lights hang from the ceiling. The walls are marked with old bloodstains and peeling paint. A sense of abandonment fills the air. The silence is unsettling, broken only by distant, muffled sounds. "));
+		("The main hall is vast and empty, with high ceilings that echo your every step. The floors are cracked and dirty, littered with discarded hospital equipment and broken furniture. Dim lights hang from the ceiling. The walls are marked with old bloodstains and peeling paint. A sense of abandonment fills the air. The silence is unsettling, broken only by distant, muffled sounds. If you want to get out of the hospital you must find a crowbar and open the exit door."));
 		Room operatingRoom = new Room("in the operating room",
 		("The operating room is cold and sterile. The air is thick with the smell of antiseptic. The room is silent.. "));
 		Room operatingRoomHall = new Room("in the hall of the operating rooms", ("The hall is warm and there is sunlight coming through all of the windows, you suddenly feel safe you close your eyes slowly and take a deep breath but as you open your eyes again you relize that the walls covered in mold and dried blood. The air is thick with the smell of decay."));
@@ -100,7 +100,7 @@ class Game
 		morgue.AddExit("east", basementHall);
 
 		mainHall.AddExit("north", firstFloorStairs);
-		mainHall.AddExit("east", exit);
+		mainHall.AddExit("east", mainHall);
 		mainHall.AddExit("south", operatingRoomHall);
 
 		operatingRoomHall.AddExit("north", mainHall);
@@ -118,25 +118,19 @@ class Game
 
 		//Weapons
 		//##############################
-		Item scalpel = new Item(1, "A scalpel. It's small but very sharp and dangerous.");
-		Item crowbar = new Item(4, "A crowbar. It's heavy and sturdy, and it could be useful for breaking things.");
-		Item pistol = new Item(4, "A pistol. It's worn, semi-automatic pistol, lightweight and scratched. .");
-		//##############################
-
-		//Light Sources
-		//##############################
-		Item flashlight = new Item(3, "A flashlight. It's small and portable, but the batteries are almost dead.");
+		Item scalpel = new Item(1, "It's small but very sharp and dangerous.");
+		Item crowbar = new Item(4, "It's heavy and sturdy, and it could be useful for breaking things.");
 		//##############################
 
 		//Medical Items
 		//##############################
-		Item medicineBottle = new Item(1, "A medicine bottle. It contains a small amount of medicine.");
-		Item medKit = new Item(4, "A medical kit. It contains bandage, antiseptic, and some other medical supplies.");
-		Item medicalBag = new Item(9, "A medical bag. It contains a lot of medicine, but it's too heavy.");
+		Item medicineBottle = new Item(1, "It contains a small amount of medicine.");
+		Item medKit = new Item(4, "It contains bandage, antiseptic, and some other medical supplies.");
+		Item medicalBag = new Item(9, "It contains a lot of medicine, but it's too heavy.");
 		//##############################
 
 
-		
+
 		patientRoomWC.Chest.Put("crowbar", crowbar);
 		// And add them to the Rooms
 
@@ -215,6 +209,15 @@ class Game
 			case "status":
 				ShowStatus();
 				break;
+			case "take":
+				Take(command);
+				break;
+				case "drop":
+				Drop(command);
+				break;
+				case "use":
+				Use(command);
+				break;
 			case "quit":
 				wantToQuit = true;
 				break;
@@ -242,6 +245,7 @@ class Game
 	private void Look()
 	{
 		Console.WriteLine(player.CurrentRoom.RoomLongDescription());
+		Console.WriteLine(player.CurrentRoom.Chest.ShowItems());
 	}
 
 	// Try to go to one direction. If there is an exit, enter the new
@@ -276,11 +280,41 @@ class Game
 	}
 	private void Take(Command command)
 	{
+		if (!command.HasSecondWord())
+		{
+			Console.WriteLine("Take what?");
+			return;
+		}
+		else if (command.HasSecondWord())
+		{
+			player.TakeFromChest(command.SecondWord);
+		}
+
 
 	}
 	private void Drop(Command command)
 	{
-
+		if (!command.HasSecondWord())
+		{
+			Console.WriteLine("Drop what?");
+			return;
+		}
+		else if (command.HasSecondWord())
+		{
+			player.DropToChest(command.SecondWord);
+		}
+	}
+	private void Use(Command command)
+    {
+		if (!command.HasSecondWord())
+        {
+            Console.WriteLine("Use what?");
+            return;
+        }
+		else if (command.HasSecondWord())
+		{
+			player.Use(command);
+		}
 	}
 
 	private void ShowStatus()
@@ -288,7 +322,8 @@ class Game
 		Console.WriteLine("============STATUS=============");
 		Console.WriteLine(player.GetHealthStatus());
 		Console.WriteLine("------------------------------");
-		Console.WriteLine("Inventory: ");
+		//show items in backpack
+		Console.WriteLine(player.ShowBackpackItems());
 		Console.WriteLine("------------------------------");
 	}
 }

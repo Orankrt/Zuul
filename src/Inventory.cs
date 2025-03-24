@@ -8,6 +8,28 @@ class Inventory
         this.items = new Dictionary<string, Item>();
     }
     // methods 
+    public string ShowItems()
+    {
+        string s = "";
+        s += "You see the following items:\n";
+        foreach (var itemName in items.Keys)
+        {
+            Item i = items[itemName];
+            s += "- " + itemName + " : " + i.Description + "\n";
+        }
+        return s;
+    }
+    public string ShowBackpackItems()
+    {
+        string s2 = "";
+        s2 += "Orhan\n";
+        foreach (var itemName in this.items.Keys)
+        {
+            s2 += itemName;
+        }
+        return s2;
+    }
+
     public bool Put(string itemName, Item item)
     {
         int freeWeight = FreeWeight();
@@ -26,6 +48,11 @@ class Inventory
     }
     public Item Get(string itemName)
     {
+        if (items.TryGetValue(itemName, out Item item))
+        {
+            items.Remove(itemName);
+            return item;
+        }
         // Find Item in items Dictionary 
         // remove Item from items Dictionary if found 
         // return Item or null 
