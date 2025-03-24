@@ -151,7 +151,7 @@ class Game
 		// Enter the main command loop. Here we repeatedly read commands and
 		// execute them until the player wants to quit.
 		bool finished = false;
-		while (!finished)
+		while (!finished && player.IsAlive())
 		{
 			Command command = parser.GetCommand();
 			finished = ProcessCommand(command);
@@ -159,7 +159,6 @@ class Game
 		if (!player.IsAlive())
 		{
 			Console.WriteLine("You have died. Game Over.");
-			Environment.Exit(0);
 		}
 		else
 		{
@@ -326,6 +325,7 @@ class Game
 		Console.WriteLine(player.GetHealthStatus());
 		Console.WriteLine("------------------------------");
 		//show items in backpack
+		Console.WriteLine("Capacity: " + player.Backpack.TotalWeight() + " / 15 " );
 		Console.WriteLine(player.ShowBackpackItems());
 		Console.WriteLine("------------------------------");
 	}
