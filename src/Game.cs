@@ -38,12 +38,10 @@ class Game
 		Room firstFloorStairs = new Room("in the first floor stairs",
 		("The stairs are dark because there is no electricity but it's the only way up. So you have to lean against the wall and go up slowly."));
 		Room mainHall = new Room("in the main hall of the hospital",
-		("The main hall is vast and empty, with high ceilings that echo your every step. The floors are cracked and dirty, littered with discarded hospital equipment and broken furniture. Dim lights hang from the ceiling. The walls are marked with old bloodstains and peeling paint. A sense of abandonment fills the air. The silence is unsettling, broken only by distant, muffled sounds. If you want to get out of the hospital you must find a crowbar and open the exit door."));
+		("The main hall is vast and empty, with high ceilings that echo your every step. The floors are cracked and dirty, littered with discarded hospital equipment and broken furniture. Dim lights hang from the ceiling. The walls are marked with old bloodstains and peeling paint. A sense of abandonment fills the air. The silence is unsettling, broken only by distant, muffled sounds. There's a barricaded gate with an exit sign on the top. If you want to get out of the hospital you must find a crowbar and open that door."));
 		Room operatingRoom = new Room("in the operating room",
 		("The operating room is cold and sterile. The air is thick with the smell of antiseptic. The room is silent.. "));
 		Room operatingRoomHall = new Room("in the hall of the operating rooms", ("The hall is warm and there is sunlight coming through all of the windows, you suddenly feel safe you close your eyes slowly and take a deep breath but as you open your eyes again you relize that the walls covered in mold and dried blood. The air is thick with the smell of decay."));
-		Room exit = new Room("in the outside of the hospital",
-		("When you go outside you see dozens of dead bodies lying on the ground and covered with sheets. You have no idea what happened, but the place is deserted and quiet. You realize that something really bad happened when you were in the coma..."));
 		Room basementStairs = new Room("in the basement stairs",
 		("The stairs are dark and damp. The air is thick with the smell of mold and decay. You can hear faint sounds coming from below, but you can't make out what they are. The stairs are steep and slippery, and you have to be careful not to fall. "));
 		Room basementHall = new Room("in the basement hall",
@@ -108,7 +106,6 @@ class Game
 
 		operatingRoom.AddExit("east", operatingRoomHall);
 
-		exit.AddExit("west", mainHall);
 
 		//##################################################################################################################
 
@@ -118,7 +115,7 @@ class Game
 
 		//Weapons
 		//##############################
-		Item scalpel = new Item(1, "It's small but very sharp and dangerous.");
+		// Item scalpel = new Item(1, "It's small but very sharp and dangerous.");
 		Item crowbar = new Item(4, "It's heavy and sturdy, and it could be useful for breaking things.");
 		//##############################
 
@@ -131,8 +128,13 @@ class Game
 
 
 
-		patientRoomWC.Chest.Put("crowbar", crowbar);
 		// And add them to the Rooms
+		patientRoomWC.Chest.Put("medicineBottle", medicineBottle);
+		patientReception.Chest.Put("medicineBottle", medicineBottle);
+		operatingRoom.Chest.Put("medKit", medKit);
+		morgue.Chest.Put("medKit", medKit);
+		storageRoom.Chest.Put("medicalBag", medicalBag);
+		storageRoom.Chest.Put("crowbar", crowbar);
 
 
 		// ...
@@ -175,6 +177,7 @@ class Game
 		Console.WriteLine("-----------------------------------------------");
 		Console.WriteLine("As you open your eyes, you feel dizzy. The surroundings are silent… Too silent. Your mind is foggy, your body weak. You realize you’re in a hospital room. The last thing you remember is being shot while fighting criminals with your police colleagues.");
 		Console.WriteLine("You try to get out of bed slowly, but you fail and fall to the floor. You slowly get up again.");
+		Console.WriteLine("You need to get out of the hospital as soon as possible.");
 		Console.WriteLine("-----------------------------------------------");
 		Console.WriteLine("Type 'help' if you need help.");
 		Console.WriteLine("-----------------------------------------------");

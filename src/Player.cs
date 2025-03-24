@@ -51,7 +51,10 @@ class Player
             CurrentRoom.Chest.Put(itemName, droppedItem);
             Console.WriteLine("You have dropped the item.");
         }
-        Console.WriteLine("You dont have the item in your backpack.");
+        else
+        {
+            Console.WriteLine("You dont have the item in your backpack.");
+        }
         // Remove Item from your inventory. 
         // Add the Item to the Room 
         // Inspect returned values 
@@ -96,23 +99,33 @@ class Player
     {
         string itemName = command.SecondWord;
         string itemName2 = command.ThirdWord;
+
+        if (backpack.Get(itemName) == null)
+        {
+            Console.WriteLine($"You don't have a {itemName} in your backpack.");
+            return;
+        }
+
         if (itemName == "medicineBottle")
         {
-            health += 10;
+            Heal(10);
+            Console.WriteLine("You used medicine bottle for your minor injuries.");
+            backpack.Remove("medicineBottle");
         }
-        if (itemName == "medKit")
+        else if (itemName == "medKit")
         {
-            health += 40;
-        }
-        if (itemName == "medicalBag")
-        {
-            health += 80;
-        }
-        if (itemName == "scalpel")
-        {
+            Heal(40);
+            Console.WriteLine("You used medkit and now you feel better.");
+            backpack.Remove("medKit");
 
         }
-        if (itemName == "crowbar")
+        else if (itemName == "medicalBag")
+        {
+            Heal(80);
+            Console.WriteLine("You used medical bag and now you feel much better.");
+            backpack.Remove("medicalBag");
+        }
+        else if (itemName == "crowbar")
         {
             health -= 5;
             Console.WriteLine("While you used your crowbar, you got injured yourself.");
@@ -124,11 +137,17 @@ class Player
             }
             if (itemName2 == "east")
             {
-                Console.WriteLine("You have opened the door with the crowbar.");
+                Console.WriteLine("You have opened the exit door with the crowbar.");
+                Console.WriteLine("When you go outside you see dozens of dead bodies lying on the ground and covered with sheets. You have no idea what happened, but the place is deserted and quiet. You realize that something really bad happened when you were in the coma...");
+                Console.WriteLine("To be continued...");
                 Console.WriteLine("Congratulations! You won!");
                 Environment.Exit(0); // End the game if player wins
             }
         }
-        
+        else
+        {
+            Console.WriteLine("You can't use that item.");
+        }
+
     }
 }

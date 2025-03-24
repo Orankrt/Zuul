@@ -22,7 +22,7 @@ class Inventory
     public string ShowBackpackItems()
     {
         string s2 = "";
-        s2 += "Orhan\n";
+        s2 += "Inventory: \n";
         foreach (var itemName in this.items.Keys)
         {
             s2 += itemName;
@@ -57,6 +57,10 @@ class Inventory
         // remove Item from items Dictionary if found 
         // return Item or null 
         return null;
+    }
+    public void Remove(string itemName)
+    {
+        items.Remove(itemName);
     }
 
     public int TotalWeight()

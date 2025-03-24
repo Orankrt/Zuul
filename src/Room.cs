@@ -55,7 +55,7 @@ class Room
 		str += GetExitString();
 		return str;
 	}
-
+	// detailed description of the current room.
 
 	// Return the room that is reached if we go from this room in direction
 	// "direction". If there is no room in that direction, return null.
