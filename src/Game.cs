@@ -38,7 +38,7 @@ class Game
 		Room firstFloorStairs = new Room("in the first floor stairs",
 		("The stairs are dark because there is no electricity but it's the only way up. So you have to lean against the wall and go up slowly."));
 		Room mainHall = new Room("in the main hall of the hospital",
-		("The main hall is vast and empty, with high ceilings that echo your every step. The floors are cracked and dirty, littered with discarded hospital equipment and broken furniture. Dim lights hang from the ceiling. The walls are marked with old bloodstains and peeling paint. A sense of abandonment fills the air. The silence is unsettling, broken only by distant, muffled sounds. There's a barricaded gate with an exit sign on the top. If you want to get out of the hospital you must find a crowbar and open that door."));
+		("The main hall is vast and empty, with high ceilings that echo your every step. The floors are cracked and dirty, littered with discarded hospital equipment and broken furniture. Dim lights hang from the ceiling. The walls are marked with old bloodstains and peeling paint. A sense of abandonment fills the air. The silence is unsettling, broken only by distant, muffled sounds. There's a barricaded door to your east with an exit sign on the top. If you want to get out of the hospital you must find a crowbar and open that door."));
 		Room operatingRoom = new Room("in the operating room",
 		("The operating room is cold and sterile. The air is thick with the smell of antiseptic. The room is silent.. "));
 		Room operatingRoomHall = new Room("in the hall of the operating rooms", ("The hall is warm and there is sunlight coming through all of the windows, you suddenly feel safe you close your eyes slowly and take a deep breath but as you open your eyes again you relize that the walls covered in mold and dried blood. The air is thick with the smell of decay."));
@@ -215,10 +215,10 @@ class Game
 			case "take":
 				Take(command);
 				break;
-				case "drop":
+			case "drop":
 				Drop(command);
 				break;
-				case "use":
+			case "use":
 				Use(command);
 				break;
 			case "quit":
@@ -308,12 +308,12 @@ class Game
 		}
 	}
 	private void Use(Command command)
-    {
+	{
 		if (!command.HasSecondWord())
-        {
-            Console.WriteLine("Use what?");
-            return;
-        }
+		{
+			Console.WriteLine("Use what?");
+			return;
+		}
 		else if (command.HasSecondWord())
 		{
 			player.Use(command);
