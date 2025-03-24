@@ -12,6 +12,10 @@ class Player
         backpack = new Inventory(15);
     }
 
+    public Inventory Backpack
+    {
+        get { return backpack; }
+    }
     // methods 
 
     public bool TakeFromChest(string itemName)
@@ -133,7 +137,6 @@ class Player
             if (!IsAlive())
             {
                 Console.WriteLine("You have died from your injuries while using the crowbar.");
-                Environment.Exit(0); // End the game if player is dead from the crowbar
             }
             if (itemName2 == "east")
             {
@@ -141,7 +144,6 @@ class Player
                 Console.WriteLine("When you go outside you see dozens of dead bodies lying on the ground and covered with sheets. You have no idea what happened, but the place is deserted and quiet. You realize that something really bad happened when you were in the coma...");
                 Console.WriteLine("To be continued...");
                 Console.WriteLine("Congratulations! You won!");
-                Environment.Exit(0); // End the game if player wins
             }
         }
         else
