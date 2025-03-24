@@ -20,7 +20,7 @@ class Game
 		// Create the rooms
 		//##################################################################################################################
 		// ROOM LIST
-		Room patientRoom = new Room("in the patient room where you woke up",
+		Room patientRoom = new Room("in the patient room where you woke down",
 		("The bed is dirty, and the sheets are crumpled. The air smells bad, a mix of medicine and something rotten. The heart monitor is off, and medical tools are scattered on the floor. The window blinds are half-open. This room was once safe, but now it feels abandoned and scary."));
 		Room patientRoomWC = new Room("in the patient room's WC",
 		("The WC is small and dirty."));
